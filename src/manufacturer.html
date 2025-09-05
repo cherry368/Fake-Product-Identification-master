@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manufacturer Panel | Fake Product Verification</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- FontAwesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f7fa;
+    }
+
+    .navbar-brand span {
+      font-size: 0.8rem;
+      color: #ccc;
+      display: block;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1f3c73, #2b5876);
+      color: white;
+      padding: 80px 20px 50px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-weight: 700;
+      font-size: 3rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: #e0e0e0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin: 60px 0 30px;
+    }
+
+    .section-header h2 {
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      color: #666;
+      font-size: 1rem;
+    }
+
+    .card-action {
+      transition: all 0.3s ease;
+      padding: 30px;
+      border: none;
+      border-radius: 12px;
+      background-color: #ffffff;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+      height: 100%;
+    }
+
+    .card-action:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-action .icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      background-color: #1b1e21;
+      color: #ccc;
+      text-align: center;
+      padding: 20px;
+      margin-top: 80px;
+    }
+
+    .btn-custom {
+      border-radius: 25px;
+      padding: 10px 24px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">
+      Fake Product ID
+      <span>Manufacturer Portal</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+		<li class="nav-item">
+          <a href="index.html" class="btn btn-outline-light btn-sm px-3 py-1 rounded-pill ms-2">Logout</a>
+        </li>      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <h1>Manufacturer Dashboard</h1>
+    <p>Manage your product lifecycle on a tamper-proof blockchain ledger.</p>
+  </div>
+</section>
+
+<!-- Action Section -->
+<section class="container">
+  <div class="section-header">
+    <h2>Quick Actions</h2>
+    <p>Use the options below to add, manage and distribute your products securely.</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-3">
+      <div class="card card-action text-center h-100">
+        <div class="icon text-primary"><i class="fas fa-box-open"></i></div>
+        <h5 class="card-title">Add Product</h5>
+        <p class="card-text">Register a new product with a blockchain-verified identity.</p>
+        <a href="addProduct.html" class="btn btn-outline-primary btn-custom">Proceed</a>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-action text-center h-100">
+        <div class="icon text-success"><i class="fas fa-user-plus"></i></div>
+        <h5 class="card-title">Add Seller</h5>
+        <p class="card-text">Authorize and link new sellers to your registered products.</p>
+        <a href="addSeller.html" class="btn btn-outline-success btn-custom">Proceed</a>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-action text-center h-100">
+        <div class="icon text-warning"><i class="fas fa-share-square"></i></div>
+        <h5 class="card-title">Sell Product</h5>
+        <p class="card-text">Transfer product ownership to an authorized seller.</p>
+        <a href="sellProductManufacturer.html" class="btn btn-outline-warning btn-custom">Proceed</a>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-action text-center h-100">
+        <div class="icon text-info"><i class="fas fa-search"></i></div>
+        <h5 class="card-title">Query Seller</h5>
+        <p class="card-text">Look up a seller’s credentials and track records.</p>
+        <a href="querySeller.html" class="btn btn-outline-info btn-custom">Proceed</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>&copy; 2025 Fake Product ID System | Manufacturer Panel | Powered by Ethereum Blockchain</p>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/web3.min.js"></script>
+<script src="js/truffle-contract.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

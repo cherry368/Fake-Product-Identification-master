@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Add Seller | Fake Product Verification</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f7fa;
+    }
+    .navbar-brand span {
+      font-size: 0.8rem;
+      color: #ccc;
+      display: block;
+    }
+    .hero {
+      background: linear-gradient(135deg, #1f3c73, #2b5876);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-weight: 700;
+      font-size: 2.5rem;
+    }
+    .form-card {
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+      padding: 30px;
+      background-color: #ffffff;
+    }
+    .btn-custom {
+      border-radius: 20px;
+      padding: 8px 20px;
+      font-weight: 600;
+    }
+    input.form-control {
+      background-color: #fff;
+      border: 1px solid #ced4da !important;
+      border-radius: 5px;
+      box-shadow: none;
+      transition: border-color 0.3s ease-in-out;
+    }
+    input.form-control:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+    footer {
+      background: #1b1e21;
+      color: #ccc;
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">
+      Fake Product ID
+      <span>Manufacturer Portal</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item">
+          <a href="manufacturer.html" class="btn btn-outline-light btn-sm px-3 py-1 rounded-pill ms-2">Dashboard</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <h1>Add New Seller</h1>
+    <p>Register a seller who will handle your authorized product distribution.</p>
+  </div>
+</section>
+
+<!-- Form Section -->
+<section class="container my-5">
+  <div class="form-card mx-auto" style="max-width: 950px;">
+    <h4 class="mb-4">Seller Details</h4>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="SellerName" class="form-label">Seller Name</label>
+        <input type="text" class="form-control" id="SellerName" />
+      </div>
+      <div class="col-md-6">
+        <label for="SellerBrand" class="form-label">Seller Brand</label>
+        <input type="text" class="form-control" id="SellerBrand" />
+      </div>
+      <div class="col-md-6">
+        <label for="SellerCode" class="form-label">Seller Code</label>
+        <input type="text" class="form-control" id="SellerCode" />
+      </div>
+      <div class="col-md-6">
+        <label for="SellerPhoneNumber" class="form-label">Phone Number</label>
+        <input type="text" class="form-control" id="SellerPhoneNumber" />
+      </div>
+      <div class="col-md-6">
+        <label for="SellerManager" class="form-label">Seller Manager</label>
+        <input type="text" class="form-control" id="SellerManager" />
+      </div>
+      <div class="col-md-6">
+        <label for="SellerAddress" class="form-label">Seller Address</label>
+        <input type="text" class="form-control" id="SellerAddress" />
+      </div>
+      <div class="col-md-6">
+        <label for="ManufacturerId" class="form-label">Manufacturer ID</label>
+        <input type="text" class="form-control" id="ManufacturerId" />
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-warning btn-custom" id="register">Add the Seller</button>
+      <div class="text-center mt-3">
+        <div id="statusMessage" class="fw-bold"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>&copy; 2025 Fake Product ID System | Seller Registration Panel | Powered by Ethereum Blockchain</p>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.7.4/dist/web3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/truffle-contract/dist/truffle-contract.min.js"></script>
+
+<script>
+App = {
+  web3Provider: null,
+  contracts: {},
+
+  init: async function() {
+    return await App.initWeb3();
+  },
+
+  initWeb3: async function() {
+    if (window.ethereum) {
+      App.web3Provider = window.ethereum;
+      try {
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+      } catch (error) {
+        console.error("User denied account access");
+      }
+    } else if (window.web3) {
+      App.web3Provider = window.web3.currentProvider;
+    } else {
+      App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+    }
+
+    web3 = new Web3(App.web3Provider);
+
+    return App.initContract();
+  },
+
+  initContract: function() {
+    return $.getJSON('product.json', function(data) {
+      var productArtifact = data;
+      App.contracts.product = TruffleContract(productArtifact);
+      App.contracts.product.setProvider(App.web3Provider);
+
+      return App.bindEvents();
+    });
+  },
+
+  bindEvents: function() {
+    $('#register').on('click', App.registerProduct);
+  },
+
+  registerProduct: function(event) {
+    event.preventDefault();
+
+    let statusDiv = $('#statusMessage');
+    statusDiv.text("✅ Seller added successfully!").css('color', 'green');
+
+    let sellerName = $('#SellerName').val();
+    let sellerBrand = $('#SellerBrand').val();
+    let sellerCode = $('#SellerCode').val();
+    let sellerPhoneNumber = $('#SellerPhoneNumber').val();
+    let sellerManager = $('#SellerManager').val();
+    let sellerAddress = $('#SellerAddress').val();
+    let manufacturerId = $('#ManufacturerId').val();
+
+    if (!sellerName || !sellerBrand || !sellerCode || !sellerPhoneNumber || !sellerManager || !sellerAddress || !manufacturerId) {
+      statusDiv.text("⚠️ Please fill in all fields.").css('color', 'red');
+      return;
+    }
+
+    web3.eth.getAccounts().then(function(accounts) {
+      var account = accounts[0];
+      var productInstance;
+
+      App.contracts.product.deployed().then(function(instance) {
+        productInstance = instance;
+
+        return productInstance.addSeller(
+          web3.utils.asciiToHex(manufacturerId),
+          web3.utils.asciiToHex(sellerName),
+          web3.utils.asciiToHex(sellerBrand),
+          web3.utils.asciiToHex(sellerCode),
+          sellerPhoneNumber,
+          web3.utils.asciiToHex(sellerManager),
+          web3.utils.asciiToHex(sellerAddress),
+          { from: account }
+        );
+      }).then(function(result) {
+        statusDiv.text("✅ Seller added successfully!").css('color', 'green');
+
+        $('#SellerName').val('');
+        $('#SellerBrand').val('');
+        $('#SellerCode').val('');
+        $('#SellerPhoneNumber').val('');
+        $('#SellerManager').val('');
+        $('#SellerAddress').val('');
+        $('#ManufacturerId').val('');
+      }).catch(function(err) {
+        console.error(err.message);
+        statusDiv.text("❌ Error adding seller. See console.").css('color', 'red');
+      });
+    });
+  }
+};
+
+$(document).ready(function() {
+  App.init();
+});
+</script>
+
+</body>
+</html>

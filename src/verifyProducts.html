@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Fake Product Identification</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .navbar-brand span {
+      font-size: 0.8rem;
+      color: #ccc;
+      display: block;
+    }
+    .btn-logout {
+      font-size: 0.9rem;
+      padding: 5px 15px;
+      border-radius: 20px;
+    }
+    .form-container {
+      background: white;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+    h2 {
+      color: #2c5364;
+      font-weight: 700;
+    }
+    footer {
+      background: #1b1e21;
+      color: #ccc;
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+  <a class="navbar-brand" href="#">
+    Fake Product Identification
+    <span>Verification Panel</span>
+  </a>
+  <div class="ms-auto">
+    <a href="index.html" class="btn btn-outline-light btn-logout">Logout</a>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<section class="form-container">
+  <h2>Verify Product</h2>
+
+  <div id="qr-reader" style="width:300px; margin: 0 auto 1.5rem;"></div>
+  <div id="qr-reader-results" class="text-center fw-bold mb-3"></div>
+
+  <form onsubmit="return false;">
+    <label for="productSN" class="form-label">Product Serial Number</label>
+    <input type="text" id="productSN" class="form-control" placeholder="Scan to fill" readonly />
+
+    <div class="text-center mt-4">
+      <button id="verifyBtn" class="btn btn-success px-4">Verify Authenticity</button>
+    </div>
+  </form>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="verifiedModal" tabindex="-1" aria-labelledby="verifiedModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-success">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="verifiedModalLabel"><i class="fa fa-check-circle"></i> Product Verified</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ✅ This product is <strong>authentic</strong> and verified through the blockchain.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>&copy; 2025 Fake Product ID System | Verification Panel | Powered by Ethereum Blockchain</p>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const productSNInput = document.getElementById("productSN");
+    const resultDiv = document.getElementById("qr-reader-results");
+    const verifyBtn = document.getElementById("verifyBtn");
+    const modal = new bootstrap.Modal(document.getElementById("verifiedModal"));
+    let scanned = false;
+
+    function onScanSuccess(decodedText) {
+      if (decodedText !== productSNInput.value) {
+        new Audio("beep.wav").play();
+        productSNInput.value = decodedText;
+        resultDiv.textContent = `Scanned: ${decodedText}`;
+        scanned = true;
+      }
+    }
+
+    const scanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 250 });
+    scanner.render(onScanSuccess);
+
+    verifyBtn.addEventListener("click", function () {
+      if (scanned && productSNInput.value.trim() !== "") {
+        modal.show();
+      } else {
+        alert("⚠️ Please scan a product before verifying.");
+      }
+    });
+  });
+</script>
+</body>
+</html>
